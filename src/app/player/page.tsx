@@ -12,7 +12,7 @@ function PlayerContent() {
   const [isError, setIsError] = useState(false);
   const [isIframeLoaded, setIsIframeLoaded] = useState(false);
 
-  const PROXY_PLAYER_BASE = "https://rwaplayer.vercel.app/player?url=";
+  const PROXY_PLAYER_BASE = "https://utkarsh-player.netlify.app/player?url=";
 
   useEffect(() => {
     const rawUrl = searchParams.get('url');
