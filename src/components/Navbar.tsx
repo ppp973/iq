@@ -30,12 +30,12 @@ export default function Navbar() {
         
         <div className="flex flex-col">
           <h1 className="text-xl font-black tracking-tighter text-white leading-none">
-            STUDY<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">IQ</span>
+            RAJ<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">IQ</span>
           </h1>
           <div className="flex items-center gap-1.5 mt-1">
              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
              <span className="text-[10px] font-bold text-zinc-500 tracking-[0.25em] uppercase">
-               Universe
+               VIPSTUDY
              </span>
           </div>
         </div>
