@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
-import { Search, Heart, Zap, Play, Sparkles, ShieldCheck } from 'lucide-react';
+import { Search, Heart, Zap, Play, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import coursesData from '@/data/courses.json';
 
@@ -12,7 +12,7 @@ interface Course {
   title: string;
 }
 
-// --- NEW PREMIUM SPLASH SCREEN COMPONENT ---
+// --- NEW PREMIUM SPLASH SCREEN WITH YOUR LOGO ---
 const SplashScreen = () => (
   <motion.div
     exit={{ opacity: 0, filter: "blur(15px)" }}
@@ -38,13 +38,13 @@ const SplashScreen = () => (
       <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto mt-2 opacity-50" />
     </motion.div>
 
-    {/* MIDDLE: Premium Round Logo Section */}
+    {/* MIDDLE: Your Logo with Premium Rings */}
     <div className="relative">
       {/* Outer Rotating Rings */}
       <motion.div 
         animate={{ rotate: 360 }}
         transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[-20px] border border-dashed border-indigo-500/20 rounded-full"
+        className="absolute inset-[-20px] border border-dashed border-indigo-500/30 rounded-full"
       />
       <motion.div 
         animate={{ rotate: -360 }}
@@ -52,21 +52,25 @@ const SplashScreen = () => (
         className="absolute inset-[-40px] border border-zinc-800/50 rounded-full"
       />
 
-      {/* Main Logo Sphere */}
+      {/* Main Logo Container */}
       <motion.div
         initial={{ scale: 0.7, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", stiffness: 100, damping: 12, delay: 0.4 }}
-        className="relative w-36 h-36 md:w-44 md:h-44 bg-gradient-to-br from-indigo-600 to-purple-800 rounded-full p-[2px] shadow-[0_0_60px_rgba(79,70,229,0.4)] flex items-center justify-center ring-1 ring-white/20"
+        className="relative w-40 h-40 md:w-48 md:h-48 bg-gradient-to-br from-indigo-600 to-purple-800 rounded-full p-[3px] shadow-[0_0_60px_rgba(79,70,229,0.4)] flex items-center justify-center ring-1 ring-white/20 overflow-hidden"
       >
-        <div className="w-full h-full bg-zinc-950 rounded-full flex items-center justify-center overflow-hidden relative">
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent opacity-40" />
-          <ShieldCheck className="w-16 h-16 md:w-20 md:h-20 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] z-10" />
+        <div className="w-full h-full bg-zinc-950 rounded-full overflow-hidden flex items-center justify-center">
+          {/* Your Logo Image */}
+          <img 
+            src="https://th.bing.com/th/id/OIP.xqU_GpwBStad469WUYL6GwHaHa?w=108&h=108&c=1&bgcl=75a56d&r=0&o=7&pid=ImgRC&rm=3" 
+            alt="VIP Logo"
+            className="w-full h-full object-cover"
+          />
         </div>
       </motion.div>
     </div>
 
-    {/* BOTTOM: Powered by Section */}
+    {/* BOTTOM: Powered by RAJ */}
     <motion.div
       initial={{ y: 30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -96,7 +100,6 @@ export default function Home() {
   const [filteredCourses, setFilteredCourses] = useState<Course[]>(sortedCourses);
 
   useEffect(() => {
-    // Increase splash time slightly for the premium feel
     const splashTimer = setTimeout(() => setShowSplash(false), 3000);
     const savedFavs = localStorage.getItem('spidy_favs');
     if (savedFavs) setFavorites(JSON.parse(savedFavs));
