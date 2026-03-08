@@ -31,7 +31,7 @@ const SplashScreen = () => (
       <div className="flex items-center justify-center gap-3">
         <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500" />
         <h2 className="text-base font-black tracking-[0.5em] text-amber-500 uppercase">
-          VIP STUDENT
+          VIP STUDY
         </h2>
         <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500" />
       </div>
@@ -62,7 +62,7 @@ const SplashScreen = () => (
         <div className="w-full h-full bg-zinc-950 rounded-full overflow-hidden flex items-center justify-center">
           {/* Your Logo Image */}
           <img 
-            src="https://th.bing.com/th/id/OIP.xqU_GpwBStad469WUYL6GwHaHa?w=108&h=108&c=1&bgcl=75a56d&r=0&o=7&pid=ImgRC&rm=3" 
+            src="https://i.pinimg.com/736x/a6/e8/4c/a6e84cd182745f53f833b579ebe88e28.jpg" 
             alt="VIP Logo"
             className="w-full h-full object-cover"
           />
