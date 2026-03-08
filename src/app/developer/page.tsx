@@ -19,7 +19,7 @@ export default function Developer() {
       >
         <Link href="/" className="group inline-flex items-center gap-2 text-zinc-500 mb-8 hover:text-white transition-all">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> 
-          <span className="text-xs font-black tracking-widest uppercase">Back to Universe</span>
+          <span className="text-xs font-black tracking-widest uppercase">Back to VIPSTUDY</span>
         </Link>
         
         <div className="relative group">
@@ -53,7 +53,7 @@ export default function Developer() {
             
             {/* Name & Title */}
             <div className="relative z-10">
-              <h1 className="text-4xl font-black text-white mb-1 tracking-tighter">𝑳𝑨𝑳𝑰𝑻 <span className="text-indigo-500">△</span></h1>
+              <h1 className="text-4xl font-black text-white mb-1 tracking-tighter">RAJ <span className="text-indigo-500">0</span></h1>
               <div className="flex items-center justify-center gap-2 mb-6">
                  <Sparkles size={14} className="text-amber-500" />
                  <p className="text-zinc-500 font-black text-[10px] tracking-[0.4em] uppercase">Full Stack Architect</p>
@@ -79,7 +79,7 @@ export default function Developer() {
                   </div>
                   <div>
                     <h3 className="font-black text-xs text-white uppercase tracking-tight">System Architect</h3>
-                    <p className="text-[10px] text-zinc-500 font-bold">Built SpidyUniverse V2.0 Engine</p>
+                    <p className="text-[10px] text-zinc-500 font-bold">VIPSTUDY V5.0 Engine</p>
                   </div>
                 </motion.div>
 
