@@ -62,9 +62,9 @@ export default function WhatsAppModal({ isOpen, onClose }: WhatsAppModalProps) {
                 </div>
               </div>
 
-              <h2 className="text-2xl font-black text-white mb-2 tracking-tight">Join Spidy Army</h2>
+              <h2 className="text-2xl font-black text-white mb-2 tracking-tight">Join VIPSTUDY</h2>
               <p className="text-sm text-zinc-500 mb-8 leading-relaxed px-2">
-                Get instant access to <span className="text-zinc-200 font-semibold">Premium Notes</span>, Daily Leaks & Direct Updates from <span className="text-green-500 font-bold">Lalit</span>.
+                Get instant access to <span className="text-zinc-200 font-semibold">Premium Notes</span>, Daily Leaks & Direct Updates from <span className="text-green-500 font-bold">RAJ</span>.
               </p>
 
               <a 
@@ -76,7 +76,7 @@ export default function WhatsAppModal({ isOpen, onClose }: WhatsAppModalProps) {
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                 <div className="flex items-center justify-center gap-2 relative z-10">
                    <Bell size={18} className="group-hover:animate-bounce" />
-                   <span>Join Channel Now</span>
+                   <span>Join Channel </span>
                 </div>
               </a>
 
