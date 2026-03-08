@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #6366f1;
+  --bg: #000000;
+  --card-bg: #0f0f0f;
+  --border: #1f1f1f;
+}
+
+body {
+  background-color: var(--bg);
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Lalit's Glass Card Style */
+.glass-card {
+  background: #0f0f0f;
+  border: 1px solid #1f1f1f;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.sci-input {
+  background: #0a0a0a;
+  border: 1px solid #333;
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+  width: 100%;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.sci-input:focus {
+  border-color: var(--primary);
+}
+
+/* Scrollbar for Player Playlist */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000; 
+}
+::-webkit-scrollbar-thumb {
+  background: #222; 
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary); 
+}
