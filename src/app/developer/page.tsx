@@ -1,56 +1,118 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Code, Shield, Crown, Globe } from 'lucide-react';
+import { ArrowLeft, Code, Shield, Crown, Globe, Sparkles, Terminal, Cpu } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Developer() {
   return (
-    <div className="min-h-screen bg-black text-white p-6 flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-indigo-900/20 to-transparent"></div>
+    <div className="min-h-screen bg-[#050505] text-white p-6 flex flex-col items-center justify-center relative overflow-hidden">
       
-      <div className="z-10 w-full max-w-md">
-        <Link href="/" className="inline-flex items-center gap-2 text-gray-400 mb-8 hover:text-white transition">
-          <ArrowLeft className="w-4 h-4" /> Back to Home
+      {/* Background Cinematic Glows */}
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="z-10 w-full max-w-md"
+      >
+        <Link href="/" className="group inline-flex items-center gap-2 text-zinc-500 mb-8 hover:text-white transition-all">
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> 
+          <span className="text-xs font-black tracking-widest uppercase">Back to Universe</span>
         </Link>
         
-        <div className="bg-[#0f0f0f] border border-white/10 rounded-3xl p-8 text-center relative overflow-hidden shadow-2xl">
-           <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-indigo-600 to-purple-600 opacity-20"></div>
-           
-           <div className="w-32 h-32 mx-auto rounded-full p-1 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 relative z-10 mb-4 shadow-xl">
-             <div className="w-full h-full rounded-full overflow-hidden border-4 border-black relative">
-               <Image src="/Lalit.jpg" fill alt="Lalit" className="object-cover" />
-             </div>
-             <div className="absolute bottom-0 right-0 bg-blue-500 p-1.5 rounded-full border-4 border-[#0f0f0f]">
-               <Shield className="w-4 h-4 text-white" />
-             </div>
-           </div>
-           
-           <h1 className="text-3xl font-black text-white mb-1 tracking-tight">𝑳𝑨𝑳𝑰𝑻 △</h1>
-           <p className="text-indigo-400 font-bold text-xs tracking-[0.2em] uppercase mb-6">Full Stack Developer</p>
-           
-           <div className="flex justify-center gap-3 mb-8">
-             <span className="px-3 py-1 rounded-lg bg-[#1a1a1a] border border-[#333] text-[10px] font-bold text-gray-300">NEXT.JS</span>
-             <span className="px-3 py-1 rounded-lg bg-[#1a1a1a] border border-[#333] text-[10px] font-bold text-gray-300">REACT</span>
-             <span className="px-3 py-1 rounded-lg bg-[#1a1a1a] border border-[#333] text-[10px] font-bold text-gray-300">SECURE UI</span>
-           </div>
-           
-           <div className="space-y-3 text-left">
-             <div className="p-4 rounded-xl bg-[#151515] border border-white/5 flex items-center gap-4">
-               <div className="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500"><Crown className="w-5 h-5" /></div>
-               <div><h3 className="font-bold text-sm">System Architect</h3><p className="text-[10px] text-gray-500">Built SpidyUniverse V2.0</p></div>
-             </div>
-             <div className="p-4 rounded-xl bg-[#151515] border border-white/5 flex items-center gap-4">
-               <div className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-500"><Globe className="w-5 h-5" /></div>
-               <div><h3 className="font-bold text-sm">Proxy Master</h3><p className="text-[10px] text-gray-500">Secure Video Streaming</p></div>
-             </div>
-           </div>
-           
-           <div className="mt-8 pt-6 border-t border-white/5">
-             <p className="text-xs text-gray-600 font-mono">"Code is Poetry." - 𝑳𝑨𝑳𝑰𝑻 △</p>
-           </div>
+        <div className="relative group">
+          {/* Animated Gradient Border Layer */}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+          
+          <div className="bg-zinc-950/80 backdrop-blur-2xl border border-white/5 rounded-[3rem] p-8 text-center relative overflow-hidden shadow-2xl">
+            
+            {/* Top Banner Effect */}
+            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-indigo-600/20 to-purple-600/20"></div>
+            
+            {/* Profile Section */}
+            <div className="relative z-10 mb-6">
+              <div className="w-32 h-32 mx-auto relative">
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  className="absolute -inset-2 bg-gradient-to-tr from-indigo-500 via-transparent to-purple-500 rounded-full opacity-40"
+                />
+                <div className="w-full h-full rounded-full overflow-hidden border-4 border-zinc-950 relative z-10 shadow-2xl">
+                   <Image src="/Lalit.jpg" fill alt="Lalit" className="object-cover scale-110" />
+                </div>
+                <motion.div 
+                  whileHover={{ scale: 1.2 }}
+                  className="absolute bottom-1 right-1 bg-indigo-600 p-2 rounded-xl border-4 border-zinc-950 z-20 shadow-xl"
+                >
+                  <Shield className="w-4 h-4 text-white fill-current" />
+                </motion.div>
+              </div>
+            </div>
+            
+            {/* Name & Title */}
+            <div className="relative z-10">
+              <h1 className="text-4xl font-black text-white mb-1 tracking-tighter">𝑳𝑨𝑳𝑰𝑻 <span className="text-indigo-500">△</span></h1>
+              <div className="flex items-center justify-center gap-2 mb-6">
+                 <Sparkles size={14} className="text-amber-500" />
+                 <p className="text-zinc-500 font-black text-[10px] tracking-[0.4em] uppercase">Full Stack Architect</p>
+              </div>
+              
+              {/* Tech Stack Chips */}
+              <div className="flex flex-wrap justify-center gap-2 mb-8">
+                {['Next.js 14', 'React', 'TypeScript', 'Tailwind'].map((tech) => (
+                  <span key={tech} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] font-black text-zinc-400 tracking-wider hover:bg-white/10 transition-colors uppercase">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              
+              {/* Achievement Cards */}
+              <div className="grid gap-3 text-left">
+                <motion.div 
+                  whileHover={{ x: 5 }}
+                  className="p-4 rounded-2xl bg-zinc-900/50 border border-white/5 flex items-center gap-4 group/item"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 group-hover/item:bg-indigo-500 group-hover/item:text-white transition-all duration-500">
+                    <Cpu className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-black text-xs text-white uppercase tracking-tight">System Architect</h3>
+                    <p className="text-[10px] text-zinc-500 font-bold">Built SpidyUniverse V2.0 Engine</p>
+                  </div>
+                </motion.div>
+
+                <motion.div 
+                  whileHover={{ x: 5 }}
+                  className="p-4 rounded-2xl bg-zinc-900/50 border border-white/5 flex items-center gap-4 group/item"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover/item:bg-purple-500 group-hover/item:text-white transition-all duration-500">
+                    <Terminal className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-black text-xs text-white uppercase tracking-tight">Proxy Master</h3>
+                    <p className="text-[10px] text-zinc-500 font-bold">Encrypted Video Streaming Logic</p>
+                  </div>
+                </motion.div>
+              </div>
+              
+              {/* Footer Quote */}
+              <div className="mt-8 pt-6 border-t border-white/5">
+                <div className="flex items-center justify-center gap-2 text-zinc-600 group-hover:text-zinc-400 transition-colors">
+                   <Code size={14} />
+                   <p className="text-[10px] font-mono italic tracking-tight">"Turning logic into digital art."</p>
+                </div>
+                <p className="mt-4 text-[9px] font-black text-zinc-800 tracking-[0.5em] uppercase">Developed with ❤️ by RAJ</p>
+              </div>
+            </div>
+
+          </div>
         </div>
-      </div>
+      </motion.div>
+
+      {/* Decorative Dots Background */}
+      <div className="absolute inset-0 z-0 opacity-20 [background-image:radial-gradient(#1e1e1e_1px,transparent_1px)] [background-size:20px_20px]"></div>
     </div>
   );
 }
