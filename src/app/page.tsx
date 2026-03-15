@@ -232,7 +232,7 @@ export default function Home() {
          <p className="text-zinc-600 font-medium tracking-[0.2em] text-[10px] uppercase mb-4">The VIP Standard</p>
          <div className="flex items-center justify-center gap-4 text-zinc-400">
             <div className="h-px w-12 bg-zinc-800" />
-            <span className="font-black text-white">VIPSTUDY</span>
+            <span className="font-black text-white">SPIDYUNIVERSE</span>
             <div className="h-px w-12 bg-zinc-800" />
          </div>
       </footer>
