@@ -3,86 +3,42 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
-import { Search, Heart, Zap, Play, Sparkles } from 'lucide-react';
+import { Search, Heart, Play, Sparkles, LayoutGrid, Clock, ChevronRight, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import coursesData from '@/data/courses.json';
 
+// --- Types ---
 interface Course {
   id: number | string;
   title: string;
 }
 
-// --- NEW PREMIUM SPLASH SCREEN WITH YOUR LOGO ---
+// --- NEW PREMIUM SPLASH SCREEN ---
 const SplashScreen = () => (
   <motion.div
-    exit={{ opacity: 0, filter: "blur(15px)" }}
-    className="fixed inset-0 z-[9999] bg-zinc-950 flex flex-col items-center justify-between py-16 px-6 overflow-hidden"
+    initial={{ opacity: 1 }}
+    exit={{ opacity: 0, scale: 1.1 }}
+    transition={{ duration: 0.8, ease: "easeInOut" }}
+    className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center overflow-hidden"
   >
-    {/* Ambient Glow */}
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none" />
-
-    {/* TOP: VIP STUDENT Section */}
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500/10 via-transparent to-transparent" />
     <motion.div
-      initial={{ y: -30, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.2, duration: 0.7 }}
-      className="text-center"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="relative flex flex-col items-center"
     >
-      <div className="flex items-center justify-center gap-3">
-        <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500" />
-        <h2 className="text-base font-black tracking-[0.5em] text-amber-500 uppercase">
-          VIP STUDY
-        </h2>
-        <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500" />
-      </div>
-      <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto mt-2 opacity-50" />
-    </motion.div>
-
-    {/* MIDDLE: Your Logo with Premium Rings */}
-    <div className="relative">
-      {/* Outer Rotating Rings */}
-      <motion.div 
-        animate={{ rotate: 360 }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[-20px] border border-dashed border-indigo-500/30 rounded-full"
-      />
-      <motion.div 
-        animate={{ rotate: -360 }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[-40px] border border-zinc-800/50 rounded-full"
-      />
-
-      {/* Main Logo Container */}
-      <motion.div
-        initial={{ scale: 0.7, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 100, damping: 12, delay: 0.4 }}
-        className="relative w-40 h-40 md:w-48 md:h-48 bg-gradient-to-br from-indigo-600 to-purple-800 rounded-full p-[3px] shadow-[0_0_60px_rgba(79,70,229,0.4)] flex items-center justify-center ring-1 ring-white/20 overflow-hidden"
-      >
-        <div className="w-full h-full bg-zinc-950 rounded-full overflow-hidden flex items-center justify-center">
-          {/* Your Logo Image */}
-          <img 
-            src="https://i.pinimg.com/736x/a6/e8/4c/a6e84cd182745f53f833b579ebe88e28.jpg" 
-            alt="VIP Logo"
-            className="w-full h-full object-cover"
-          />
+      <div className="relative w-32 h-32 md:w-40 md:h-40 mb-8">
+        <motion.div 
+          animate={{ rotate: 360 }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 border-2 border-dashed border-indigo-500/40 rounded-full" 
+        />
+        <div className="absolute inset-2 rounded-full overflow-hidden border border-white/10 shadow-2xl shadow-indigo-500/20">
+          <img src="https://i.pinimg.com/736x/a6/e8/4c/a6e84cd182745f53f833b579ebe88e28.jpg" alt="Logo" className="w-full h-full object-cover" />
         </div>
-      </motion.div>
-    </div>
-
-    {/* BOTTOM: Powered by RAJ */}
-    <motion.div
-      initial={{ y: 30, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.8, duration: 0.6 }}
-      className="text-center"
-    >
-      <p className="text-[10px] text-zinc-500 font-bold tracking-[0.4em] uppercase mb-2">
-        Designed for Excellence
-      </p>
-      <h3 className="text-xl font-medium text-white tracking-[0.2em]">
-        POWERED BY <span className="font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-zinc-500">RAJ</span>
-      </h3>
+      </div>
+      <h2 className="text-2xl font-black tracking-[0.3em] text-white">VIP STUDY</h2>
+      <p className="text-indigo-400 text-[10px] font-bold mt-2 tracking-[0.5em] uppercase">Powered by Raj</p>
     </motion.div>
   </motion.div>
 );
@@ -90,7 +46,7 @@ const SplashScreen = () => (
 export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
   const [query, setQuery] = useState('');
-  const [visibleCount, setVisibleCount] = useState(20);
+  const [visibleCount, setVisibleCount] = useState(12);
   const [favorites, setFavorites] = useState<string[]>([]);
   
   const sortedCourses = useMemo(() => {
@@ -100,7 +56,7 @@ export default function Home() {
   const [filteredCourses, setFilteredCourses] = useState<Course[]>(sortedCourses);
 
   useEffect(() => {
-    const splashTimer = setTimeout(() => setShowSplash(false), 3000);
+    const splashTimer = setTimeout(() => setShowSplash(false), 2500);
     const savedFavs = localStorage.getItem('spidy_favs');
     if (savedFavs) setFavorites(JSON.parse(savedFavs));
     return () => clearTimeout(splashTimer);
@@ -113,124 +69,173 @@ export default function Home() {
     setFilteredCourses(results);
   }, [query, sortedCourses]);
 
-  const toggleFav = (id: string, e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation(); 
-    const newFavs = favorites.includes(id) 
-      ? favorites.filter(f => f !== id) 
-      : [...favorites, id];
+  const toggleFav = (id: string, e: React.MouseEvent) => {
+    e.preventDefault(); e.stopPropagation();
+    const newFavs = favorites.includes(id) ? favorites.filter(f => f !== id) : [...favorites, id];
     setFavorites(newFavs);
     localStorage.setItem('spidy_favs', JSON.stringify(newFavs));
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 pb-20 relative overflow-hidden">
-      {/* Background Ambient Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
-
-      <AnimatePresence mode="wait">
-        {showSplash && <SplashScreen key="splash" />}
-      </AnimatePresence>
+    <div className="min-h-screen bg-[#050505] text-zinc-100 selection:bg-indigo-500/30">
+      <AnimatePresence>{showSplash && <SplashScreen />}</AnimatePresence>
 
       <Navbar />
 
-      <main className="pt-24 px-4 max-w-7xl mx-auto relative z-10">
-        {/* Search Bar */}
-        <div className="relative mb-12 max-w-2xl mx-auto">
-          <input 
-            type="text" 
-            placeholder="Search your batches..." 
-            className="w-full bg-zinc-900/50 backdrop-blur-md border border-zinc-800 rounded-full p-4 pl-14 text-lg font-medium outline-none focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-2xl"
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-400 w-6 h-6" />
-        </div>
+      {/* Decorative Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] bg-indigo-600/10 blur-[150px] rounded-full" />
+        <div className="absolute top-[20%] -right-[5%] w-[30%] h-[30%] bg-purple-600/10 blur-[120px] rounded-full" />
+      </div>
 
-        {/* Favorites */}
-        {favorites.length > 0 && !query && (
-          <div className="mb-12">
-            <h2 className="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-              <Heart className="w-5 h-5 fill-rose-500 text-rose-500" /> Your Library
-            </h2>
-            <div className="flex gap-5 overflow-x-auto pb-6 no-scrollbar snap-x">
-              {sortedCourses.filter((c: Course) => favorites.includes(c.id.toString())).map((course: Course) => (
-                <div key={`fav-${course.id}`} className="min-w-[300px] snap-start">
-                  <div className="bg-zinc-900/40 backdrop-blur-sm border border-indigo-500/30 rounded-3xl p-3 relative overflow-hidden group hover:border-indigo-500/80 transition-colors">
-                    <div className="h-36 rounded-2xl bg-zinc-800 mb-4 overflow-hidden relative">
-                        <Image src="/mybatches.png" alt={course.title} fill className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" />
-                    </div>
-                    <div className="px-2 pb-2">
-                      <h3 className="font-bold text-sm line-clamp-2 text-zinc-200">{course.title}</h3>
-                      <Link href={`/course/${course.id}`} className="mt-3 w-full py-2.5 bg-indigo-500/10 hover:bg-indigo-500 text-indigo-400 hover:text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all">
-                        <Play className="w-3 h-3 fill-current" /> Resume
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
+      <main className="relative pt-32 px-6 max-w-7xl mx-auto">
+        
+        {/* --- HERO SECTION --- */}
+        <section className="mb-20 text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 mb-6"
+          >
+            <Zap className="w-4 h-4 text-amber-400 fill-amber-400" />
+            <span className="text-xs font-bold tracking-wide text-zinc-400 uppercase">Welcome to the Future of Learning</span>
+          </motion.div>
+          
+          <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight">
+            Elevate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-white to-purple-400">Knowledge.</span>
+          </h1>
+
+          <div className="relative max-w-2xl mx-auto group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur opacity-20 group-focus-within:opacity-40 transition duration-500" />
+            <div className="relative flex items-center">
+              <Search className="absolute left-5 text-zinc-500 w-5 h-5" />
+              <input 
+                type="text" 
+                placeholder="Search premium batches..." 
+                className="w-full bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-2xl py-5 pl-14 pr-6 text-lg outline-none focus:border-indigo-500/50 transition-all"
+                onChange={(e) => setQuery(e.target.value)}
+              />
             </div>
           </div>
+        </section>
+
+        {/* --- FAVORITES (BENTO STYLE) --- */}
+        {favorites.length > 0 && !query && (
+          <section className="mb-20">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-xl font-bold flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-rose-500/10"><Heart className="w-5 h-5 fill-rose-500 text-rose-500" /></div>
+                Continue Learning
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {sortedCourses.filter(c => favorites.includes(c.id.toString())).slice(0, 4).map((course, idx) => (
+                <Link href={`/course/${course.id}`} key={`fav-${course.id}`} className={`group relative overflow-hidden rounded-3xl bg-zinc-900/50 border border-zinc-800 p-4 hover:border-indigo-500/50 transition-all ${idx === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
+                   <div className="relative h-full flex flex-col">
+                      <div className={`relative rounded-2xl overflow-hidden bg-zinc-800 ${idx === 0 ? 'h-64' : 'h-32'} mb-4`}>
+                        <Image src="/mybatches.png" alt="" fill className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent" />
+                        <div className="absolute bottom-3 left-3 flex items-center gap-2">
+                           <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
+                              <Play className="w-3 h-3 fill-white" />
+                           </div>
+                           <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Resume</span>
+                        </div>
+                      </div>
+                      <h3 className={`font-bold text-zinc-100 line-clamp-2 ${idx === 0 ? 'text-xl' : 'text-sm'}`}>{course.title}</h3>
+                   </div>
+                </Link>
+              ))}
+            </div>
+          </section>
         )}
 
-        {/* Main Grid Header */}
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-black text-white flex items-center gap-3 tracking-tight">
-            <Sparkles className="w-6 h-6 text-indigo-400" /> Explore Universe
-          </h2>
-          <span className="text-sm font-medium text-zinc-500 bg-zinc-900 px-3 py-1 rounded-full">{filteredCourses.length} Batches</span>
-        </div>
+        {/* --- MAIN GRID --- */}
+        <section>
+          <div className="flex items-center justify-between mb-10">
+            <div className="space-y-1">
+              <h2 className="text-3xl font-black text-white flex items-center gap-3">
+                Explore Universe
+              </h2>
+              <p className="text-zinc-500 text-sm font-medium">Discover your next milestone from {filteredCourses.length} batches</p>
+            </div>
+            <div className="hidden md:flex bg-zinc-900 p-1 rounded-xl border border-zinc-800">
+               <button className="p-2 bg-zinc-800 rounded-lg text-white"><LayoutGrid size={18} /></button>
+            </div>
+          </div>
 
-        {/* Premium Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCourses.slice(0, visibleCount).map((course: Course) => (
-            <div key={`course-${course.id}`} className="group relative bg-zinc-900/30 backdrop-blur-xl border border-zinc-800 rounded-3xl overflow-hidden hover:border-zinc-700 transition-all duration-500 hover:shadow-[0_8px_30px_rgb(0,0,0,0.5)] flex flex-col">
-              
-              <div className="h-52 w-full relative overflow-hidden">
-                <Image src="/mybatches.png" alt={course.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out opacity-80 group-hover:opacity-100" />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
-                
-                <div className="absolute top-4 left-4">
-                  <span className="bg-zinc-950/60 backdrop-blur-md text-zinc-300 border border-zinc-700/50 text-[10px] font-bold px-2.5 py-1 rounded-lg">
-                    ID: {course.id}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredCourses.slice(0, visibleCount).map((course) => (
+              <motion.div 
+                layout
+                key={`course-${course.id}`}
+                className="group relative bg-zinc-900/20 backdrop-blur-sm border border-zinc-800/50 rounded-[2rem] overflow-hidden hover:bg-zinc-900/40 transition-all duration-300"
+              >
+                {/* ID Tag */}
+                <div className="absolute top-4 left-4 z-20">
+                  <span className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-bold text-indigo-300">
+                    #{course.id}
                   </span>
                 </div>
 
-                <button onClick={(e) => toggleFav(course.id.toString(), e)} className="absolute top-4 right-4 z-20 w-10 h-10 bg-zinc-950/40 backdrop-blur-md border border-zinc-700/50 rounded-full flex items-center justify-center hover:bg-zinc-800 transition-colors">
-                  <Heart className={`w-5 h-5 transition-colors ${favorites.includes(course.id.toString()) ? 'fill-rose-500 text-rose-500' : 'text-zinc-400'}`} />
+                {/* Fav Button */}
+                <button 
+                  onClick={(e) => toggleFav(course.id.toString(), e)}
+                  className="absolute top-4 right-4 z-20 w-10 h-10 rounded-2xl bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center group/btn"
+                >
+                  <Heart className={`w-5 h-5 transition-transform group-hover/btn:scale-110 ${favorites.includes(course.id.toString()) ? 'fill-rose-500 text-rose-500' : 'text-zinc-500'}`} />
                 </button>
-              </div>
 
-              <div className="px-5 pt-2 pb-5 flex flex-col flex-grow z-10 -mt-8">
-                <div className="flex-grow">
-                  <h3 className="font-extrabold text-[1.15rem] leading-tight line-clamp-2 text-zinc-100 group-hover:text-indigo-400 transition-colors duration-300 drop-shadow-md">
-                    {course.title}
-                  </h3>
-                  <p className="text-sm text-zinc-500 mt-2 font-medium">By SPIDYUNIVERSE</p>
+                <div className="relative h-48 overflow-hidden">
+                  <Image src="/mybatches.png" alt={course.title} fill className="object-cover opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
                 </div>
 
-                <Link href={`/course/${course.id}`} className="mt-6">
-                  <button className="w-full py-3.5 rounded-xl bg-zinc-100 text-zinc-950 font-bold flex items-center justify-center gap-2 hover:bg-indigo-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_20px_rgba(79,70,229,0.3)]">
-                    <Play className="w-4 h-4 fill-current" /> Let's Study
-                  </button>
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Load More */}
-        {filteredCourses.length > visibleCount && (
-          <div className="flex justify-center mt-12">
-            <button 
-              onClick={() => setVisibleCount(prev => prev + 20)}
-              className="px-8 py-4 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 font-bold hover:bg-zinc-800 hover:text-zinc-200 transition-colors flex items-center gap-2"
-            >
-              Load More Batches
-            </button>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Premium Batch</span>
+                  </div>
+                  <h3 className="font-bold text-lg leading-tight mb-6 line-clamp-2 text-zinc-100 group-hover:text-indigo-400 transition-colors">
+                    {course.title}
+                  </h3>
+                  
+                  <Link href={`/course/${course.id}`}>
+                    <button className="w-full group/btn relative flex items-center justify-center gap-3 bg-zinc-100 text-black py-4 rounded-2xl font-black text-sm overflow-hidden transition-all hover:bg-white active:scale-95">
+                      <Play className="w-4 h-4 fill-black" />
+                      START LEARNING
+                      <ChevronRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                    </button>
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
           </div>
-        )}
+
+          {/* LOAD MORE */}
+          {filteredCourses.length > visibleCount && (
+            <div className="flex justify-center mt-20">
+              <button 
+                onClick={() => setVisibleCount(prev => prev + 12)}
+                className="group relative px-10 py-4 bg-zinc-900 rounded-2xl font-bold border border-zinc-800 hover:border-indigo-500/50 transition-all"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                   Load More Batches <Clock size={16} className="text-indigo-400" />
+                </span>
+              </button>
+            </div>
+          )}
+        </section>
       </main>
+
+      {/* Footer Branding */}
+      <footer className="mt-40 border-t border-zinc-900 py-12 text-center">
+         <p className="text-zinc-600 font-medium tracking-[0.2em] text-[10px] uppercase mb-4">The VIP Standard</p>
+         <div className="flex items-center justify-center gap-4 text-zinc-400">
+            <div className="h-px w-12 bg-zinc-800" />
+            <span className="font-black text-white">VIPSTUDY</span>
+            <div className="h-px w-12 bg-zinc-800" />
+         </div>
+      </footer>
     </div>
   );
 }
