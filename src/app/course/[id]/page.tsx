@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import WhatsAppModal from '@/components/WhatsAppModal';
-import { Loader2, Folder, ChevronRight, BookOpen, GraduationCap } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Loader2, Folder, ChevronRight, BookOpen, Fingerprint } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CourseSubjects({ params }: { params: { id: string } }) {
   const [loading, setLoading] = useState(true);
@@ -32,30 +32,33 @@ export default function CourseSubjects({ params }: { params: { id: string } }) {
           const uniqueFolders = Array.from(new Set(items.map((i: any) => i.parentTitle || "General"))).sort();
           setSubjects(uniqueFolders);
         }
-      } catch (e) { console.error(e); } finally { setLoading(false); }
+      } catch (e) { 
+        console.error(e); 
+      } finally { 
+        setTimeout(() => setLoading(false), 800); // Smooth transition
+      }
     };
     fetchData();
   }, [params.id]);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 pb-20 relative overflow-hidden">
-      {/* Premium Ambient Background */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-purple-600/5 blur-[100px] rounded-full pointer-events-none" />
-
+    <div className="min-h-screen bg-[#050505] text-white pb-20 selection:bg-indigo-500/30">
       <Navbar />
 
-      {/* NEW PREMIUM MODAL */}
+      {/* WhatsApp Modal */}
       <WhatsAppModal isOpen={showWA} onClose={() => setShowWA(false)} />
 
-      <main className="pt-28 px-4 max-w-3xl mx-auto relative z-10">
+      <main className="pt-28 px-5 max-w-3xl mx-auto">
         {loading ? (
           <div className="flex flex-col items-center justify-center h-[60vh]">
             <div className="relative mb-6">
-               <Loader2 className="w-12 h-12 text-indigo-500 animate-spin" />
-               <div className="absolute inset-0 bg-indigo-500 blur-xl opacity-20 animate-pulse" />
+               <div className="absolute inset-0 bg-indigo-500/20 blur-2xl rounded-full animate-pulse" />
+               <Loader2 className="w-12 h-12 text-indigo-500 animate-spin relative z-10" />
             </div>
-            <p className="text-zinc-500 font-black text-[10px] tracking-[0.5em] uppercase">Decrypting Content</p>
+            <div className="flex items-center gap-2">
+               <Fingerprint className="w-4 h-4 text-gray-600 animate-pulse" />
+               <p className="text-gray-500 font-mono text-[10px] tracking-[0.3em] uppercase">Authenticating Content</p>
+            </div>
           </div>
         ) : (
           <motion.div
@@ -64,66 +67,85 @@ export default function CourseSubjects({ params }: { params: { id: string } }) {
             transition={{ duration: 0.5 }}
           >
             {/* Course Header Card */}
-            <div className="mb-10 relative p-6 rounded-[2.5rem] bg-zinc-900/30 border border-white/5 backdrop-blur-xl overflow-hidden">
-                <div className="absolute top-0 right-0 p-8 opacity-10">
-                    <GraduationCap size={80} className="text-white" />
-                </div>
-                
+            <div className="relative p-6 md:p-8 rounded-[32px] bg-gradient-to-br from-[#111] to-[#050505] border border-white/5 overflow-hidden mb-10 shadow-2xl">
+              <div className="absolute -top-24 -right-24 w-48 h-48 bg-indigo-600/10 blur-[100px] rounded-full" />
+              
+              <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-3">
-                   <div className="px-2 py-0.5 bg-indigo-500 text-[10px] font-black rounded text-white tracking-tighter">BATCH {params.id}</div>
-                   <div className="h-[1px] w-8 bg-zinc-800" />
-                   <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Premium Course</span>
+                  <span className="text-[10px] font-bold text-indigo-400 bg-indigo-400/10 border border-indigo-400/20 px-3 py-1 rounded-full uppercase tracking-widest">
+                    ID: {params.id}
+                  </span>
+                  <span className="text-[10px] font-bold text-green-400 bg-green-400/10 border border-green-400/20 px-3 py-1 rounded-full uppercase tracking-widest">
+                    Verified Batch
+                  </span>
                 </div>
-                
-                <h1 className="text-2xl md:text-3xl font-black leading-tight text-white mb-2 drop-shadow-md">
-                   {courseName}
+                <h1 className="text-2xl md:text-4xl font-black leading-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                  {courseName}
                 </h1>
-                <p className="text-sm text-zinc-400 font-medium">By Spidy Universe Team</p>
+              </div>
             </div>
             
+            {/* Subject List Title */}
             <div className="flex items-center justify-between mb-6 px-2">
-                <div className="flex items-center gap-2">
-                    <BookOpen size={18} className="text-indigo-400" />
-                    <h2 className="text-sm font-black text-zinc-200 tracking-widest uppercase">Subjects List</h2>
-                </div>
-                <span className="text-[10px] font-bold text-zinc-500 bg-zinc-900 px-3 py-1 rounded-full border border-white/5">
-                   {subjects.length} FOLDERS
-                </span>
+               <div className="flex items-center gap-2">
+                 <BookOpen className="w-5 h-5 text-indigo-500" />
+                 <h2 className="text-sm font-bold tracking-widest uppercase text-gray-400">Available Subjects</h2>
+               </div>
+               <span className="text-[10px] font-mono text-gray-600">{subjects.length} Folders Found</span>
             </div>
             
-            {/* Subjects Grid */}
-            <div className="grid gap-4">
-              {subjects.map((folder, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  <Link href={`/course/${params.id}/${encodeURIComponent(folder)}`}>
-                    <div className="group bg-zinc-900/40 backdrop-blur-md p-5 rounded-[2rem] border border-white/5 flex items-center justify-between hover:bg-zinc-900/80 hover:border-indigo-500/30 hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 active:scale-[0.98]">
-                      <div className="flex items-center gap-5">
-                        <div className="w-14 h-14 bg-zinc-950 border border-white/5 rounded-2xl flex items-center justify-center text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500 shadow-inner">
-                          <Folder className="w-6 h-6 fill-current opacity-80" />
+            {/* Subjects Grid/List */}
+            <div className="space-y-4">
+              <AnimatePresence>
+                {subjects.map((folder, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <Link href={`/course/${params.id}/${encodeURIComponent(folder)}`}>
+                      <div className="group relative bg-[#0d0d0d] p-5 rounded-2xl border border-white/5 flex items-center justify-between active:scale-[0.97] transition-all hover:bg-[#121212] hover:border-indigo-500/40">
+                        <div className="flex items-center gap-5 relative z-10">
+                          {/* Premium Folder Icon */}
+                          <div className="relative">
+                            <div className="absolute inset-0 bg-indigo-600 opacity-0 group-hover:opacity-20 blur-lg transition-opacity" />
+                            <div className="w-14 h-14 bg-[#161616] border border-white/5 rounded-2xl flex items-center justify-center text-gray-400 group-hover:text-indigo-400 group-hover:border-indigo-500/30 transition-all duration-300">
+                              <Folder className="w-7 h-7" />
+                            </div>
+                          </div>
+                          
+                          <div className="flex flex-col">
+                            <span className="font-bold text-base md:text-lg text-gray-300 group-hover:text-white transition-colors line-clamp-1 italic">
+                              {folder}
+                            </span>
+                            <span className="text-[10px] text-gray-600 font-medium group-hover:text-gray-400 transition-colors">
+                              Click to view lectures
+                            </span>
+                          </div>
                         </div>
-                        <div>
-                          <span className="font-bold text-lg text-zinc-200 group-hover:text-white transition-colors block">
-                             {folder}
-                          </span>
-                          <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Open Library</span>
+                        
+                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-indigo-500 transition-all duration-300">
+                          <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
                         </div>
+                        
+                        {/* Hover Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/[0.02] to-indigo-500/0 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
                       </div>
-                      <div className="w-10 h-10 rounded-full flex items-center justify-center bg-zinc-950/50 border border-white/5 group-hover:border-indigo-500/50 group-hover:bg-indigo-500/10 transition-all">
-                        <ChevronRight className="text-zinc-600 group-hover:text-indigo-400 group-hover:translate-x-0.5 transition-all" size={20} />
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
+                    </Link>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
           </motion.div>
         )}
       </main>
+
+      {/* Modern Backdrop decoration */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-screen-xl h-full pointer-events-none -z-10">
+        <div className="absolute top-[10%] left-[5%] w-64 h-64 bg-indigo-600/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[20%] right-[5%] w-80 h-80 bg-purple-600/5 blur-[120px] rounded-full" />
+      </div>
     </div>
   );
 }
