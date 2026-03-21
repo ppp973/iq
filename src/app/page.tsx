@@ -58,7 +58,7 @@ export default function Home() {
             >
                <div className="absolute -inset-10 bg-indigo-600/20 blur-[100px] rounded-full" />
                <h1 className="text-5xl md:text-7xl font-black tracking-tighter relative z-10">
-                SPIDY<span className="text-indigo-500 bg-clip-text">UNIVERSE</span>
+                VIP<span className="text-indigo-500 bg-clip-text">STUDY</span>
               </h1>
             </motion.div>
             <motion.p 
